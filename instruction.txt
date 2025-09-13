@@ -1,0 +1,3 @@
+скачати "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+pip freeze > requirements.txt ----> створити файл з усіма версіями бібліотек
+pip install -r requirements.txt ----> автоматично завантажити бібліотеки

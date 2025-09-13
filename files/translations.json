@@ -1,0 +1,115 @@
+{
+  "greeting": {
+    "en" : "Choose what you want to do",
+    "uk" : "Виберіть, що Ви хочете зробити",
+    "de" : "Wählen Sie, was Sie tun möchten",
+    "es" : "Elige lo que quieres hacer",
+    "ja" : "やりたいことを選択してください"
+  },
+  "maths" : {
+    "en" : "\uD83D\uDCCAMaths\uD83D\uDCCA",
+    "uk" : "\uD83D\uDCCAМатематика\uD83D\uDCCA",
+    "de" : "\uD83D\uDCCAMathematik\uD83D\uDCCA",
+    "es" : "\uD83D\uDCCAMatemáticas\uD83D\uDCCA",
+    "ja" : "\uD83D\uDCCA数学\uD83D\uDCCA"
+  },
+  "help": {
+    "en" : "Сontact support",
+    "uk" : "Зв'язатись з вчителем",
+    "de" : "Kontaktieren Sie den Lehrer",
+    "es" : "Contacta con el profesor",
+    "ja" : "先生に連絡してください"
+  },
+  "admin": {
+    "en" : "Your rating➡\uFE0F",
+    "uk" : "Ваш рейтинг➡\uFE0F",
+    "de" : "Ihre Bewertung➡\uFE0F",
+    "es" : "Tu calificación➡\uFE0F",
+    "ja" : "あなたの評価➡\uFE0F"
+  },
+  "physics": {
+    "en" : "\uD83D\uDDD3Physics\uD83D\uDDD3",
+    "uk" : "\uD83D\uDDD3Фізика\uD83D\uDDD3",
+    "de" : "\uD83D\uDDD3Physik\uD83D\uDDD3",
+    "es" : "\uD83D\uDDD3Física\uD83D\uDDD3",
+    "ja" : "\uD83D\uDDD3物理\uD83D\uDDD3"
+  },
+  "change_lang" : {
+    "en" : "\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F Change Language \uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F",
+    "uk" : "\uD83C\uDDFA\uD83C\uDDE6 Змінити мову \uD83C\uDDFA\uD83C\uDDE6",
+    "de" : "\uD83C\uDDE9\uD83C\uDDEA Sprache ändern \uD83C\uDDE9\uD83C\uDDEA",
+    "es" : "\uD83C\uDDEA\uD83C\uDDF8 Cambiar idioma \uD83C\uDDEA\uD83C\uDDF8",
+    "ja" : "\uD83C\uDDEF\uD83C\uDDF5 言語を変更する \uD83C\uDDEF\uD83C\uDDF5"
+  },
+
+  "wuwtc" : {
+    "en" : "Choose what you want to calculate:",
+    "uk" : "Виберіть, що ви хочете розрахувати:",
+    "de" : "Lesen Sie, was Sie wissen müssen:",
+    "es" : "Elige lo que quieres calcular:",
+    "ja" : "計算したいものを選択してください:"
+  },
+
+
+  "add_eqs": {
+    "en": "\uD83C\uDD95Add your equations\uD83C\uDD95",
+    "uk" : "\uD83C\uDD95Додати ваші рівняння\uD83C\uDD95",
+    "de" : "\uD83C\uDD95Fügen Sie Ihre Gleichungen hinzu\uD83C\uDD95",
+    "es" : "\uD83C\uDD95Agrega tus ecuac1iones\uD83C\uDD95",
+    "ja" : "\uD83C\uDD95方程式を追加する\uD83C\uDD95"
+  },
+  "solve_eqs" : {
+    "en": "\uD83D\uDD22Solve your equations\uD83D\uDD22",
+    "uk" : "\uD83D\uDD22Розв'язати ваші рівняння\uD83D\uDD22",
+    "de" : "\uD83D\uDD22Lösen Sie Ihre Gleichungen\uD83D\uDD22",
+    "es" : "\uD83D\uDD22Resuelve tus ecuaciones\uD83D\uDD22",
+    "ja" : "\uD83D\uDD22方程式を解く\uD83D\uDD22"
+  },
+  "del_eqs": {
+    "en": "⛔\uFE0FDelete your equations⛔\uFE0F",
+    "uk" : "⛔\uFE0FВидалити ваші рівняння⛔\uFE0F",
+    "de" : "⛔\uFE0FLöschen Sie Ihre Gleichungen⛔\uFE0F",
+    "es" : "⛔\uFE0FElimina tus ecuaciones⛔\uFE0F",
+    "ja" : "⛔\uFE0F方程式を削除します⛔\uFE0F"
+  },
+  "show_eqs" : {
+    "en" : "\uD83D\uDC40Show your equations\uD83D\uDC40",
+    "uk" : "\uD83D\uDC40Показати ваші рівняння\uD83D\uDC40",
+    "de" : "\uD83D\uDC40Zeigen Sie Ihre Gleichungen\uD83D\uDC40",
+    "es" : "\uD83D\uDC40Muestra tus ecuaciones\uD83D\uDC40",
+    "ja" : "\uD83D\uDC40方程式を表示します\uD83D\uDC40"
+  },
+  "reg_calc": {
+    "en": "\uD83D\uDD22Regular calculation\uD83D\uDD22",
+    "uk" : "\uD83D\uDD22Звичайні розрахунки\uD83D\uDD22",
+    "de" : "\uD83D\uDD22Regelmäßige Berechnung\uD83D\uDD22",
+    "es" : "\uD83D\uDD22Cálculo regular\uD83D\uDD22",
+    "ja" : "\uD83D\uDD22通常の計算\uD83D\uDD22"
+  },
+  "show_graph" : {
+    "en": "\uD83D\uDCC8Show a graph of a func\uD83D\uDCC9",
+    "uk" : "\uD83D\uDCC8Показати графік функції\uD83D\uDCC9",
+    "de" : "\uD83D\uDCC8Zeigen Sie einen Graphen einer Funktion\uD83D\uDCC9",
+    "es" : "\uD83D\uDCC8Mostrar una gráfica de una función\uD83D\uDCC9",
+    "ja" : "\uD83D\uDCC8関数のグラフを表示する\uD83D\uDCC9"
+  },
+
+
+
+  "levers": {
+    "en": "\uD83D\uDEE0Levers\uD83D\uDEE0",
+    "uk" : "\uD83D\uDEE0Важелі\uD83D\uDEE0",
+    "de" : "\uD83D\uDEE0Hebel\uD83D\uDEE0",
+    "es" : "\uD83D\uDEE0Palancas\uD83D\uDEE0",
+    "ja" : "\uD83D\uDEE0レバー\uD83D\uDEE0"
+  },
+
+
+  "back" : {
+    "en" : "Back \uD83D\uDD19",
+    "uk" : "Назад \uD83D\uDD19",
+    "de" : "Zurück \uD83D\uDD19",
+    "es" : "Atrás \uD83D\uDD19",
+    "ja" : "戻る \uD83D\uDD19"
+  }
+}

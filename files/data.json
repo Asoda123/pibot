@@ -1,0 +1,43 @@
+{
+  "1270718925": {
+    "username": "volodymyr_shul",
+    "eqs": [
+      "2*x**2-x+4=7",
+      "x+6=14"
+    ],
+    "lang": "en",
+    "role": "admin"
+  },
+  "7339584862": {
+    "username": "IiIiIIIIIiiiiIiIIqj",
+    "eqs": [],
+    "lang": "en",
+    "role": "user"
+  },
+  "5439584262": {
+    "username": "IiIiIIIIIiiiiIiIIqj",
+    "eqs": [],
+    "lang": "uk",
+    "role": "user"
+  },
+  "75439584262": {
+    "username": "IiIiIIIIIiiiiIiIIqj",
+    "eqs": [],
+    "lang": "uk",
+    "role": "user"
+  },
+  "1005434915": {
+    "username": null,
+    "eqs": [],
+    "lang": "en",
+    "role": "user"
+  },
+  "1111890363": {
+    "username": "Banan46753",
+    "eqs": [
+      "\u042c\u0430"
+    ],
+    "lang": "uk",
+    "role": "user"
+  }
+}
