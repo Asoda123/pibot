@@ -206,35 +206,49 @@ async def get_to_chat(call : types.CallbackQuery):
 async def write_eq(call: types.CallbackQuery):
     info = call.data
     global maths_chat_is_active
-    if info == "your equations":
-        translated = await translate_text("Write down equations using commas (eg: a*x**2 + b*x + c = d)", call.from_user.id)
+    if info == "your equations":                                                                                        # ADD EQUATIONS
+        translated = await translate_text("Write down equations using commas"+"(eg: a*x**2 + b*x + c = d)", call.from_user.id)
         await call.message.answer(translated.text)
         await Bot_states.st1.set()
-    elif info == "regular calculation":
+    elif info == "regular calculation":                                                                                 # REGULAR CALCULATIONS
         translated = await translate_text("Write down what you need to solve using commas (eg: 1 + 2 / 2)",call.from_user.id)
         await call.message.answer(translated.text)
         await Bot_states.st2.set()
-    elif info == "solve your equations":
+    elif info == "solve your equations":                                                                              # SOLVE
         translated = await translate_text("Your solved equations!\n🔽🔽🔽🔽",call.from_user.id)
         await call.message.answer(translated.text)
-
         res = [eq_s.solve_eq(i) for i in us.get_user(call.from_user.id)['eqs']]
         for i, i1 in enumerate(res):
             await call.message.answer(f"{us.get_user(call.from_user.id)['eqs'][i]}  ----->  {i1}")
+
     elif info == "del your equations":
         translated = await translate_text("Write down what equation you want to delete!(write a number)\n",call.from_user.id)
         eqs = us.get_user(call.from_user.id)['eqs']
-        await call.message.answer(translated.text)
-        for i, i1 in enumerate(eqs):
-            await call.message.answer(f"{i+1} : {i1}")
-        await Bot_states.st4.set()
-    elif info == 'show equations':
-        translated = await translate_text("Your equations\n🔽🔽🔽🔽",call.from_user.id)
-        eqs = us.get_user(call.from_user.id)['eqs']
-        await call.message.answer(translated.text)
-        for i, i1 in enumerate(eqs):
-            await call.message.answer(f"{i + 1} : {i1}")
-    elif info == 'show graph':
+        if len(eqs) == 0:
+            translated = await translate_text("You have no equations so far!\n", call.from_user.id)
+            await call.message.answer(translated.text)
+        else:
+            await call.message.answer(translated.text)
+            for i, i1 in enumerate(eqs):
+                await call.message.answer(f"{i+1} : {i1}")
+            await Bot_states.st4.set()
+
+    elif info == 'show equations':                                                                                      # SHOW EQUATIONS
+        try:
+            eqs = us.get_user(call.from_user.id)['eqs']
+            if len(eqs) == 0:
+                translated = await translate_text("You have no equations so far", call.from_user.id)
+                await call.message.answer(translated.text)
+            else:
+                translated = await translate_text("Your equations\n🔽🔽🔽🔽", call.from_user.id)
+                await call.message.answer(translated.text)
+                for i, i1 in enumerate(eqs):
+                    await call.message.answer(f"{i + 1} : {i1}")
+        except:
+            translated = await translate_text("Error. Try again", call.from_user.id)
+            await call.message.answer(translated.text)
+
+    elif info == 'show graph':                                                                                          # SHOW GRAPH
         translated = await translate_text("Write down a function (eg: 1 / x + 2x)",call.from_user.id)
         await call.message.answer(translated.text)
         await Bot_states.graph_state.set()
@@ -320,30 +334,44 @@ async def help_chat(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Bot_states.st1)
 async def get_eqs(message: types.Message, state: FSMContext):
-    info = message.text.split(',')
-    old_eqs = us.get_user(message.from_user.id)['eqs']
-    us.add_or_update_info(message.from_user.id,eqs=old_eqs+info)
-    translated = await translate_text("All is added!", message.from_user.id)
-    await message.answer(translated.text)
-    await state.reset_state(with_data=False)
+    try:
+        info = message.text.split(',')
+        old_eqs = us.get_user(message.from_user.id)['eqs']
+        us.add_or_update_info(message.from_user.id,eqs=old_eqs+info)
+        translated = await translate_text("All is added!", message.from_user.id)
+        await message.answer(translated.text)
+        await state.reset_state(with_data=False)
+    except:
+        translated = await translate_text("Error. Try again", message.from_user.id)
+        await message.answer(translated.text)
 
 @dp.message_handler(state=Bot_states.st2)
 async def reg_calc(message: types.Message, state: FSMContext):
-    info = message.text.split(",")
-    res = [str(eval(i)) for i in info]
-    await message.answer('\n'.join(res))
-    await state.reset_state(with_data=False)
+    try:
+        info = message.text.split(",")
+        res = [str(eval(i)) for i in info]
+        await message.answer('\n'.join(res))
+        await state.reset_state(with_data=False)
+    except:
+        translated = await translate_text("Error. Try again", message.from_user.id)
+        await message.answer(translated.text)
 
 
 @dp.message_handler(state=Bot_states.st4)
 async def del_eq(message: types.Message, state: FSMContext):
-    info = int(message.text)-1
-    eqs = us.get_user(message.from_user.id)['eqs']
-    eqs.pop(info)
-    us.add_or_update_info(message.from_user.id, eqs=eqs)
-    translated = await translate_text("Equation has been removed!", message.from_user.id)
-    await message.answer(translated.text)
-    await state.reset_state(with_data=False)
+    info = message.text
+    try:
+        info = int(info)
+        eqs = us.get_user(message.from_user.id)['eqs']
+        eqs.pop(info-1)
+        us.add_or_update_info(message.from_user.id, eqs=eqs)
+        translated = await translate_text("Equation has been removed!", message.from_user.id)
+        await message.answer(translated.text)
+        await state.reset_state(with_data=False)
+    except:
+        translated = await translate_text("Error. Write a number", message.from_user.id)
+        await message.answer(translated.text)
+
 
 @dp.message_handler(state=Bot_states.graph_state)
 async def graph_show(message: types.Message, state: FSMContext):
@@ -357,7 +385,8 @@ async def graph_show(message: types.Message, state: FSMContext):
     print(full_image_path)
     print(f"DEBUG: Attempting to send file from: {full_image_path}")
     if not os.path.exists(full_image_path):
-        await message.reply(f"Помилка: Фото '{graphs12.get_f_n()}' не знайдено за шляхом {full_image_path}. Перевірте файл.")
+        translated = await translate_text("Error. Try again", message.from_user.id)
+        await message.reply(translated.text)
         print(f"DEBUG: File '{full_image_path}' does not exist.")
         return
     try:
@@ -375,30 +404,35 @@ async def graph_show(message: types.Message, state: FSMContext):
 async def write_eq(call: types.CallbackQuery):
     info = call.data
     if info == ('lever'):
-        translated = await translate_text('Write down l1,l2 (in M) using commas.',call.from_user.id)
+        translated = await translate_text('Write down l1,l2 (in M) using commas. (eg: "1,2")',call.from_user.id)
         await call.message.answer(translated.text)
         await Bot_states.lever_state.set()
 
 @dp.message_handler(state=Bot_states.lever_state)
 async def lever_show(message: types.Message, state: FSMContext):
-    info = [float(i) for i in message.text.split(',')]
-    import turtle_lever
-    turtle_lever.set_user_id(message.from_user.id)
-    turtle_lever.create_lever(info[0],info[1])
-
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    full_image_path = os.path.join(script_dir, f'canv_{message.from_user.id}.png')
-
     try:
-        with open(full_image_path, "rb") as photo:
-            await bot.send_photo(message.from_user.id, photo)
-        print(f"DEBUG: Successfully attempted to send '{full_image_path}'.")
-    except Exception as e:
-        await message.reply(f"Виникла помилка під час надсилання фото: {e}")
-        print(f"DEBUG: An error occurred during photo send: {e}")
-    os.remove(full_image_path)
-    os.remove(f'temp_canv_{message.from_user.id}.ps')
-    await state.reset_state(with_data=False)
+        info = [float(i) for i in message.text.split(',')]
+        import turtle_lever
+        turtle_lever.set_user_id(message.from_user.id)
+        turtle_lever.create_lever(info[0],info[1])
+
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        full_image_path = os.path.join(script_dir, f'canv_{message.from_user.id}.png')
+
+        try:
+            with open(full_image_path, "rb") as photo:
+                await bot.send_photo(message.from_user.id, photo)
+            print(f"DEBUG: Successfully attempted to send '{full_image_path}'.")
+        except Exception as e:
+            # translated = await translate_text("Error. Try again", message.from_user.id)
+            # await message.reply(translated.text)
+            print(f"DEBUG: An error occurred during photo send: {e}")
+        os.remove(full_image_path)
+        os.remove(f'temp_canv_{message.from_user.id}.ps')
+        await state.reset_state(with_data=False)
+    except:
+        translated = await translate_text("Error. Try again", message.from_user.id)
+        await message.reply(translated.text)
 
 
 
