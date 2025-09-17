@@ -1,3 +1,5 @@
 скачати "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+pip install --upgrade pip setuptools Wheel
+
 pip freeze > requirements.txt ----> створити файл з усіма версіями бібліотек
-pip install -r requirements.txt ----> автоматично завантажити бібліотеки
+pip install -r requirements.txt ----> автоматично завантажити бібліотеки з файла

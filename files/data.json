@@ -2,8 +2,7 @@
   "1270718925": {
     "username": "volodymyr_shul",
     "eqs": [
-      "2*x**2-x+4=7",
-      "x+6=14"
+      "x+1=0"
     ],
     "lang": "en",
     "role": "admin"
@@ -11,7 +10,7 @@
   "7339584862": {
     "username": "IiIiIIIIIiiiiIiIIqj",
     "eqs": [],
-    "lang": "en",
+    "lang": "uk",
     "role": "user"
   },
   "5439584262": {
