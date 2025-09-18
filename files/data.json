@@ -1,15 +1,16 @@
 {
   "1270718925": {
     "username": "volodymyr_shul",
-    "eqs": [
-      "x+1=0"
-    ],
-    "lang": "en",
+    "eqs": [],
+    "lang": "uk",
     "role": "admin"
   },
   "7339584862": {
     "username": "IiIiIIIIIiiiiIiIIqj",
-    "eqs": [],
+    "eqs": [
+      "\u0432\u0444\u0456\u0432\u0444\u0456\u0430\u0456\u0432",
+      "\u0430\u0456\u0432\u0430\u0456\u0432\u0430\u0456\u0432\u0430=\u0456\u0432\u0430\u0456\u0432\u043f\u0456\u0432"
+    ],
     "lang": "uk",
     "role": "user"
   },

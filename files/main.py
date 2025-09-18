@@ -1,5 +1,4 @@
 import os
-
 from aiogram import Bot, Dispatcher, types
 from aiogram import executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -71,7 +70,8 @@ def get_kb1(USER_ID):
             [InlineKeyboardButton(text=tl.set_to_lang('maths', USER_ID), callback_data="maths"),
              InlineKeyboardButton(text=tl.set_to_lang('physics', USER_ID), callback_data="physics")],
             [InlineKeyboardButton(text=tl.set_to_lang('help', USER_ID), callback_data="help")],
-            [InlineKeyboardButton(text=tl.set_to_lang('change_lang', USER_ID), callback_data="change_lang")]])
+            [InlineKeyboardButton(text=tl.set_to_lang('change_lang', USER_ID), callback_data="change_lang")],
+            [InlineKeyboardButton(text=tl.set_to_lang('htu', USER_ID), callback_data="htu")]])            # How To Use
     if us.get_user(USER_ID)['role'] == 'admin':
         Inlinekb.add(InlineKeyboardButton(text=tl.set_to_lang('admin', USER_ID), callback_data="admin"),
                      InlineKeyboardButton(text='⭐'+gt.get_rating(USER_ID)+'⭐️', callback_data='nothing'))
@@ -82,6 +82,9 @@ def get_kb2(USER_ID):
         [InlineKeyboardButton(text=tl.set_to_lang('levers', USER_ID), callback_data="lever")],
         [InlineKeyboardButton(text=tl.set_to_lang('back', USER_ID), callback_data="back")]])
 
+def back_kb(USER_ID):
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=tl.set_to_lang('back', USER_ID), callback_data="back")]])
 
 async def get_student_help_kb(USER_ID):
     translated = await translate_text("Start a chat", USER_ID)
@@ -113,7 +116,7 @@ async def start_command(message : types.Message):
         await message.answer(tl.set_to_lang('wuwtc', USER_ID), reply_markup=choose_keyboard2)
 
 
-@dp.callback_query_handler(text=['maths','physics','change_lang','help'])
+@dp.callback_query_handler(text=['maths','physics','change_lang','help','htu'])
 async def get_to_chat(call : types.CallbackQuery):
     global maths_chat_is_active
     global physics_chat_is_active
@@ -146,9 +149,16 @@ async def get_to_chat(call : types.CallbackQuery):
             reply_markup=lang_keyboard
         )
 
+    if info == 'htu':
+        await bot.edit_message_text(
+            chat_id=call.message.chat.id,
+            message_id=call.message.message_id,
+            text=tl.set_to_lang('htuF', USER_ID),
+            reply_markup=back_kb(call.from_user.id)
+        )
 
     if info == 'help' and us.get_user(call.from_user.id)['role'] == 'user':
-        translated = await translate_text("We are finding a teacher for you! Wait a second", call.from_user.id)
+        # translated = await translate_text("We are finding a teacher for you! Wait a second", call.from_user.id)
         await bot.edit_message_text(
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
@@ -165,7 +175,7 @@ async def get_to_chat(call : types.CallbackQuery):
 
     elif info == 'help' and us.get_user(call.from_user.id)['role'] == 'admin':
 
-        translated = await translate_text("We are finding a student for you! Wait a second", call.from_user.id)
+        # translated = await translate_text("We are finding a student for you! Wait a second", call.from_user.id)
         await bot.edit_message_text(
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
@@ -178,13 +188,19 @@ async def get_to_chat(call : types.CallbackQuery):
             sess.teacher_to_true()
             translated = await translate_text('Student is found!\nStart your chat.', call.from_user.id)
             translated1 = await translate_text("Teacher has been found!\nStart your chat.", call.from_user.id)
+            translated2 = await translate_text('to end the chat', call.from_user.id)
+
             await bot.edit_message_text(
                 chat_id=call.message.chat.id,
                 message_id=call.message.message_id,
-                text=translated.text
+                text=translated.text + "\n/stop " + translated2.text
             )
-            await bot.send_message(student_id, text=translated1.text+'\n/stop', reply_markup= await get_student_help_kb(student_id))
+            # await bot.send_message(student_id, text=translated1.text+'\n/stop', reply_markup= await get_student_help_kb(student_id))
+            await bot.send_message(student_id, text=translated1.text + '\n/stop ' + translated2.text)
+            opposite_state = dp.current_state(user=student_id, chat=student_id)
+            await opposite_state.set_state(Bot_states.help.state)
             await Bot_states.help.set()
+
 
         else:
             translated = await translate_text('No requests from students', call.from_user.id)
@@ -214,7 +230,7 @@ async def write_eq(call: types.CallbackQuery):
         translated = await translate_text("Write down what you need to solve using commas (eg: 1 + 2 / 2)",call.from_user.id)
         await call.message.answer(translated.text)
         await Bot_states.st2.set()
-    elif info == "solve your equations":                                                                              # SOLVE
+    elif info == "solve your equations":                                                                                # SOLVE
         translated = await translate_text("Your solved equations!\n🔽🔽🔽🔽",call.from_user.id)
         await call.message.answer(translated.text)
         res = [eq_s.solve_eq(i) for i in us.get_user(call.from_user.id)['eqs']]
@@ -281,21 +297,30 @@ async def get_to_chan(call : types.CallbackQuery):
 
 @dp.message_handler(state=Bot_states.help, commands='stop')
 async def del_chat(message: types.Message, state: FSMContext):
-    student_id = sess.find_student_id(message.from_user.id)
+    user_id = message.from_user.id
+    opponent_id = sess.find_opponent_id(user_id)
+
     translated = await translate_text("Chat was ended.", message.from_user.id)
     await message.answer(translated.text)
-    await bot.send_message(chat_id=sess.find_opponent_id(message.from_user.id),
-                           text=translated.text)
+    await bot.send_message(chat_id=opponent_id,text=translated.text)
 
 
-    if us.get_user(message.from_user.id)['role'] == 'user':
-        await bot.send_message(chat_id=student_id,
+    # if us.get_user(message.from_user.id)['role'] == 'user':
+    for i in [user_id,opponent_id]:
+        if us.get_user(i)['role'] == 'user':
+            await bot.send_message(chat_id=i,
                                text='/⭐️⭐️⭐️⭐️⭐️',
                                reply_markup=rating_kb)
+            student_state = dp.current_state(user=i, chat=i)
+            await student_state.set_state(Bot_states.rate.state)
+        else:
+            opponent_state = dp.current_state(user=i, chat=i)
+            await opponent_state.reset_state()
 
-        await Bot_states.rate.set()
-    else:
-        await state.reset_state(with_data=False)
+    # else:
+    #     opponent_session = dp.current_state(user=opponent_id,chat=opponent_id)
+    #     await opponent_session.set_state(Bot_states.)
+    #     await state.reset_state(with_data=False)
 
 @dp.callback_query_handler(text=['1','2','3','4','5','sub'], state=Bot_states.rate)
 async def get_rating(call: types.CallbackQuery, state: FSMContext):
@@ -323,7 +348,6 @@ async def get_rating(call: types.CallbackQuery, state: FSMContext):
 
 @dp.message_handler(state=Bot_states.help)
 async def help_chat(message: types.Message, state: FSMContext):
-    session_id = sess.find_session_id(message.from_user.id)
     info = message.text
     if sess.check_whether_queue_is_full(message.from_user.id):
         sess.add_message(info,message.from_user.id)

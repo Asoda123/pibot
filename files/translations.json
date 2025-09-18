@@ -111,5 +111,19 @@
     "de" : "Zurück \uD83D\uDD19",
     "es" : "Atrás \uD83D\uDD19",
     "ja" : "戻る \uD83D\uDD19"
+  },
+  "htu" : {
+    "en" : "❔How to use❔",
+    "uk" : "❔Довідка❔",
+    "de" : "❔Wie zu verwenden❔",
+    "es" : "❔Como usar❔",
+    "ja" : "❔使用方法❔"
+  },
+  "htuF" : {
+    "en" : "Why don't I have a solution to my equation?\n—— Be sure that you are using lower register for variables and have and x.\n\n        COMMANDS:\n/start —— Open the main menu\n/stop (when in chat) —— End a chat",
+    "uk":  "Чому я не маю рішення для свого рівняння?\n—— Переконайтеся, що ви використовуєте малий регістр для змінних і маєте x.\n\n        КОМАНДИ:\n\n/start —— Відкрити головне меню\n/stop (в чаті) —— Закінчити чат",
+    "de" : "Warum habe ich keine Lösung für meine Gleichung?\n—— Stellen Sie sicher, dass Sie für Variablen das untere Register verwenden und ein x haben.\n\n        \nBEFEHLE:\n\n/start —— Öffnen Sie das Hauptmenü\n/stop (wenn im chat) —— Beenden Sie einen Chat",
+    "es" : "¿Por qué no tengo una solución para mi ecuación?\n—— Asegúrese de que está utilizando el registro inferior para las variables y tenga y x.\n\n        \nCOMANDOS:\n\n/start —— Abrir el menú principal\n/stop (cuando en el chat) —— Finalizar un chat",
+    "ja" : "なぜ方程式に解がないのでしょうか?\n—— 変数には必ず下位レジスタを使用し、および x を使用してください。\n\n        \nコマンド:\n\n/start —— メインメニューを開く\n/stop (チャット中) —— チャットを終了する"
   }
 }
