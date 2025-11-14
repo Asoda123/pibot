@@ -1,43 +1,16 @@
 {
   "1270718925": {
     "username": "volodymyr_shul",
-    "eqs": [],
+    "eqs": [
+      "x+1=0"
+    ],
     "lang": "uk",
     "role": "admin"
   },
   "7339584862": {
     "username": "IiIiIIIIIiiiiIiIIqj",
-    "eqs": [
-      "\u0432\u0444\u0456\u0432\u0444\u0456\u0430\u0456\u0432",
-      "\u0430\u0456\u0432\u0430\u0456\u0432\u0430\u0456\u0432\u0430=\u0456\u0432\u0430\u0456\u0432\u043f\u0456\u0432"
-    ],
-    "lang": "uk",
-    "role": "user"
-  },
-  "5439584262": {
-    "username": "IiIiIIIIIiiiiIiIIqj",
-    "eqs": [],
-    "lang": "uk",
-    "role": "user"
-  },
-  "75439584262": {
-    "username": "IiIiIIIIIiiiiIiIIqj",
-    "eqs": [],
-    "lang": "uk",
-    "role": "user"
-  },
-  "1005434915": {
-    "username": null,
     "eqs": [],
     "lang": "en",
-    "role": "user"
-  },
-  "1111890363": {
-    "username": "Banan46753",
-    "eqs": [
-      "\u042c\u0430"
-    ],
-    "lang": "uk",
     "role": "user"
   }
 }

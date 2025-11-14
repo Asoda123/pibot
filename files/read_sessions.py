@@ -1,11 +1,7 @@
 import json
 import random
 from pathlib import Path
-from humanfriendly.terminal import message
-from pyexpat.errors import messages
 
-import user_storage as us
-from random import randint
 DATA_FILE = Path('sessions.json')
 teacher_is_found = False
 
@@ -76,7 +72,6 @@ def add_user_to_queue(uid : int):
         create_a_queue(user_id=uid)
     else:
         for id_ in sessions.keys():
-            # print(sessions.get(id_).get('student').get('id'))
             if sessions.get(id_).get('student').get('id') is not None:
                 pass
             if sessions.get(id_).get('student').get('id') == uid:
@@ -124,9 +119,7 @@ def add_message(message: str,uid : int, teacher=False,user=False):
     session_id = find_session_id(uid)
 
     for key, value in sessions[session_id].items():
-        # print("value : ",value)
         for inner_keys, inner_values in value.items():
-            # print("inner_values : ",inner_values, 'inner_key : ',inner_keys)
             if inner_values == uid:
                 sessions[session_id][key]['messages'].append(message)
                 save_info(sessions)

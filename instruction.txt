@@ -1,5 +1,17 @@
+Якщо хочете запустити бота без проблем, використовуйте Docker. -> https://www.docker.com/
+Для цього потрібно встановити WSL та Docker Desktop.
+
+
+Використовуйте в терміналі
+docker pull asoda123/pibot:final
+Для завантаження на пристрій.
+
+Посилання:
+GitHub: https://github.com/Asoda123/pibot
+Docker Hub: https://hub.docker.com/r/asoda123/pibot
+
+
+!!!!!!!!!! ЯКЩО ЛОКАЛЬНО НА ПК (Скоріше всього не буде працювати.):
 скачати "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
 pip install --upgrade pip setuptools Wheel
-
-pip freeze > requirements.txt ----> створити файл з усіма версіями бібліотек
 pip install -r requirements.txt ----> автоматично завантажити бібліотеки з файла

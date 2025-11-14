@@ -1,6 +1,6 @@
 import tkinter
 from tkinter import *
-from PIL import Image, EpsImagePlugin
+from PIL import Image
 
 height = 400
 width = 700
@@ -11,7 +11,7 @@ def set_user_id(uid : int):
     global USER_ID
     USER_ID = str(uid)
 
-EpsImagePlugin.gs_windows_binary = r"C:\Program Files\gs\gs10.05.1\bin\gswin64c.exe"
+
 def create_lever(l1,l2):
     root = tkinter.Tk()
     first_length, second_length = l1*25, l2*25

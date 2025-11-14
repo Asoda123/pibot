@@ -5,17 +5,15 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from googletrans import Translator
-from humanfriendly.terminal import message
-from pyparsing import replaced_by_pep8
+import turtle_lever
+
 
 import eqs_solver as eq_s
 import gt_ratings as gt
 import read_sessions as sess
 import transl as tl
 import user_storage as us
-
 BOT_TOKEN = '8346525529:AAElTNkTAmjbbTv5Cp8e_wM0kM7KYA2iEec'
 
 tr = Translator()
@@ -86,6 +84,8 @@ def back_kb(USER_ID):
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=tl.set_to_lang('back', USER_ID), callback_data="back")]])
 
+
+
 async def get_student_help_kb(USER_ID):
     translated = await translate_text("Start a chat", USER_ID)
     return InlineKeyboardMarkup(inline_keyboard=[
@@ -107,13 +107,13 @@ async def start_command(message : types.Message):
     choose_keyboard1 = get_kb1(USER_ID)
     choose_keyboard = get_kb1(USER_ID)
     choose_keyboard2 = get_kb2(USER_ID)
-
     if not maths_chat_is_active and not physics_chat_is_active:
         await message.answer(tl.set_to_lang('greeting', USER_ID), reply_markup=choose_keyboard1)
     elif maths_chat_is_active:
         await message.answer(tl.set_to_lang('wuwtc', USER_ID), reply_markup=choose_keyboard)
     elif physics_chat_is_active:
         await message.answer(tl.set_to_lang('wuwtc', USER_ID), reply_markup=choose_keyboard2)
+
 
 
 @dp.callback_query_handler(text=['maths','physics','change_lang','help','htu'])
@@ -158,7 +158,6 @@ async def get_to_chat(call : types.CallbackQuery):
         )
 
     if info == 'help' and us.get_user(call.from_user.id)['role'] == 'user':
-        # translated = await translate_text("We are finding a teacher for you! Wait a second", call.from_user.id)
         await bot.edit_message_text(
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
@@ -174,8 +173,6 @@ async def get_to_chat(call : types.CallbackQuery):
 
 
     elif info == 'help' and us.get_user(call.from_user.id)['role'] == 'admin':
-
-        # translated = await translate_text("We are finding a student for you! Wait a second", call.from_user.id)
         await bot.edit_message_text(
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
@@ -195,7 +192,6 @@ async def get_to_chat(call : types.CallbackQuery):
                 message_id=call.message.message_id,
                 text=translated.text + "\n/stop " + translated2.text
             )
-            # await bot.send_message(student_id, text=translated1.text+'\n/stop', reply_markup= await get_student_help_kb(student_id))
             await bot.send_message(student_id, text=translated1.text + '\n/stop ' + translated2.text)
             opposite_state = dp.current_state(user=student_id, chat=student_id)
             await opposite_state.set_state(Bot_states.help.state)
@@ -265,7 +261,7 @@ async def write_eq(call: types.CallbackQuery):
             await call.message.answer(translated.text)
 
     elif info == 'show graph':                                                                                          # SHOW GRAPH
-        translated = await translate_text("Write down a function (eg: 1 / x + 2x)",call.from_user.id)
+        translated = await translate_text("Write down a function (eg: 1 / x + 2*x)",call.from_user.id)
         await call.message.answer(translated.text)
         await Bot_states.graph_state.set()
     elif info == 'start_chat':
@@ -403,23 +399,18 @@ async def graph_show(message: types.Message, state: FSMContext):
     info = message.text
     graphs12.set_user_id(message.from_user.id)
     graphs12.set_y(info)
-
     script_dir = os.path.dirname(os.path.abspath(__file__))
     full_image_path = os.path.join(script_dir, graphs12.get_f_n())
-    print(full_image_path)
-    print(f"DEBUG: Attempting to send file from: {full_image_path}")
+
     if not os.path.exists(full_image_path):
         translated = await translate_text("Error. Try again", message.from_user.id)
         await message.reply(translated.text)
-        print(f"DEBUG: File '{full_image_path}' does not exist.")
         return
     try:
         with open(full_image_path, "rb") as photo:
             await bot.send_photo(message.from_user.id, photo)
-        print(f"DEBUG: Successfully attempted to send '{full_image_path}'.")
     except Exception as e:
-        await message.reply(f"Виникла помилка під час надсилання фото: {e}")
-        print(f"DEBUG: An error occurred during photo send: {e}")
+        await message.reply(f"⛔️ : {e}")
     os.remove(full_image_path)
     await state.reset_state(with_data=False)
 
@@ -427,6 +418,7 @@ async def graph_show(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(text=['lever'])
 async def write_eq(call: types.CallbackQuery):
     info = call.data
+    global physics_chat_is_active
     if info == ('lever'):
         translated = await translate_text('Write down l1,l2 (in M) using commas. (eg: "1,2")',call.from_user.id)
         await call.message.answer(translated.text)
@@ -436,25 +428,21 @@ async def write_eq(call: types.CallbackQuery):
 async def lever_show(message: types.Message, state: FSMContext):
     try:
         info = [float(i) for i in message.text.split(',')]
-        import turtle_lever
         turtle_lever.set_user_id(message.from_user.id)
         turtle_lever.create_lever(info[0],info[1])
-
         script_dir = os.path.dirname(os.path.abspath(__file__))
         full_image_path = os.path.join(script_dir, f'canv_{message.from_user.id}.png')
 
         try:
             with open(full_image_path, "rb") as photo:
                 await bot.send_photo(message.from_user.id, photo)
-            print(f"DEBUG: Successfully attempted to send '{full_image_path}'.")
         except Exception as e:
-            # translated = await translate_text("Error. Try again", message.from_user.id)
-            # await message.reply(translated.text)
-            print(f"DEBUG: An error occurred during photo send: {e}")
+            print(f"⛔️ : {e}")
         os.remove(full_image_path)
         os.remove(f'temp_canv_{message.from_user.id}.ps')
         await state.reset_state(with_data=False)
-    except:
+    except Exception as e:
+        print(e)
         translated = await translate_text("Error. Try again", message.from_user.id)
         await message.reply(translated.text)
 

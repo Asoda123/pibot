@@ -125,5 +125,12 @@
     "de" : "Warum habe ich keine Lösung für meine Gleichung?\n—— Stellen Sie sicher, dass Sie für Variablen das untere Register verwenden und ein x haben.\n\n        \nBEFEHLE:\n\n/start —— Öffnen Sie das Hauptmenü\n/stop (wenn im chat) —— Beenden Sie einen Chat",
     "es" : "¿Por qué no tengo una solución para mi ecuación?\n—— Asegúrese de que está utilizando el registro inferior para las variables y tenga y x.\n\n        \nCOMANDOS:\n\n/start —— Abrir el menú principal\n/stop (cuando en el chat) —— Finalizar un chat",
     "ja" : "なぜ方程式に解がないのでしょうか?\n—— 変数には必ず下位レジスタを使用し、および x を使用してください。\n\n        \nコマンド:\n\n/start —— メインメニューを開く\n/stop (チャット中) —— チャットを終了する"
+  },
+  "quiz" : {
+    "en" : "\uD83D\uDCD1Quiz\uD83D\uDCD1",
+    "uk" : "\uD83D\uDCD1Вікторина\uD83D\uDCD1",
+    "de" : "\uD83D\uDCD1Quiz\uD83D\uDCD1",
+    "es" : "\uD83D\uDCD1Prueba\uD83D\uDCD1",
+    "ja" : "\uD83D\uDCD1クイズ\uD83D\uDCD1"
   }
 }
